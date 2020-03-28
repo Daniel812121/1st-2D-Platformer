@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Animator animator;
+    public Rigidbody2D rb;
 
     public float runSpeed = 40f;
 
@@ -21,32 +23,44 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true; 
+            Debug.Log("Jump");
+            jump = true;
         }
-
         if (Input.GetButtonDown("Crouch"))
         {
             crouch = true;
         }
         else if (Input.GetButtonUp("Crouch"))
         {
-            crouch = false; 
+            crouch = false;
         }
     }
 
     public void OnLanding()
     {
-        animator.SetBool("isJumping", false); 
+        animator.SetBool("isJumping", false);
     }
 
-    public void OnCrouching(bool isCrouching)
+    public void OnJumping()
     {
-        animator.SetBool("isCrouching", isCrouching);
+        animator.SetBool("isJumping", true);
+        Debug.Log("I am jumping");
+    }
+
+    public void OnCrouching()
+    {
+        animator.SetBool("isCrouching", false);
     }
 
     void FixedUpdate()
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+        if (rb.position.y < -20f)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }
+    
+

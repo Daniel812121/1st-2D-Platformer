@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
+using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
@@ -19,10 +19,13 @@ public class CharacterController : MonoBehaviour
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Vector3 m_Velocity = Vector3.zero;
 
+    bool candoublejump = false;
+
     [Header("Events")]
     [Space]
 
     public UnityEvent OnLandEvent;
+    public UnityEvent OnJumpingEvent;
 
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
@@ -43,9 +46,12 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(m_Grounded == false && m_Rigidbody2D.velocity.y > 0)
+        {
+            return;
+        }
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
-
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -130,18 +136,28 @@ public class CharacterController : MonoBehaviour
             // Add a vertical force to the player.
             m_Grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            candoublejump = true;
+            OnJumpingEvent.Invoke();
         }
-    }
+        else
+        {
+            if (candoublejump && Input.GetKeyDown(KeyCode.Space))
+            {
+                candoublejump = false;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+        }
 
 
-    private void Flip()
-    {
-        // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
+        void Flip()
+        {
+            // Switch the way the player is labelled as facing.
+            m_FacingRight = !m_FacingRight;
 
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+            // Multiply the player's x local scale by -1.
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+        }
     }
 }

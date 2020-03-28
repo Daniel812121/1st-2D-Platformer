@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
 
     public float GetHealthPercentage()
     {
-        Debug.Log("Character percentage health is " + (currentHealth / _maxHealth));
+        //Debug.Log("Character percentage health is " + (currentHealth / _maxHealth));
         return Mathf.Clamp((currentHealth / _maxHealth), 0f, 1f);
     }
 }
