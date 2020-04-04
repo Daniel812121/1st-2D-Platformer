@@ -44,9 +44,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 1, g: 0.92549026, b: 0.8705883, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 137509870
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -58,7 +59,7 @@ Camera:
   far clip plane: 1000
   field of view: 0.000010000001
   orthographic: 1
-  orthographic size: 19.351164
+  orthographic size: 87.28782
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
