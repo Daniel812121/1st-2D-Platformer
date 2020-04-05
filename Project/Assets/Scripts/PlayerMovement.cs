@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+    private Vector2 movement;
 
     void Update()
     {
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-        jump = false;
+        //jump = false;
         if (rb.position.y < -20f)
         {
             SceneManager.LoadScene(2);
