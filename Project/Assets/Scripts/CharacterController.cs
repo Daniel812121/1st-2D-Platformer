@@ -142,7 +142,7 @@ public class CharacterController : MonoBehaviour
         }
         else
         {
-            if (candoublejump && Input.GetKeyDown(KeyCode.Space))
+            if (candoublejump && Input.GetKey(KeyCode.Space))
             {
                 candoublejump = false;
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));

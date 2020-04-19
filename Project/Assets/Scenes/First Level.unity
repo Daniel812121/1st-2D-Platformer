@@ -7951,7 +7951,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 337251686, guid: a44ad96e56db3204f94a80f56f905c38, type: 3}
       propertyPath: m_AirControl
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 337251686, guid: a44ad96e56db3204f94a80f56f905c38, type: 3}
+      propertyPath: m_MovementSmoothing
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 337251687, guid: a44ad96e56db3204f94a80f56f905c38, type: 3}
       propertyPath: m_IsTrigger
@@ -7991,12 +7995,12 @@ PrefabInstance:
     - target: {fileID: 3996595344726683771, guid: a44ad96e56db3204f94a80f56f905c38,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -118.4
+      value: 172.1
       objectReference: {fileID: 0}
     - target: {fileID: 3996595344726683771, guid: a44ad96e56db3204f94a80f56f905c38,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 81.1
       objectReference: {fileID: 0}
     - target: {fileID: 3996595344726683771, guid: a44ad96e56db3204f94a80f56f905c38,
         type: 3}
@@ -8075,7 +8079,7 @@ PrefabInstance:
     - target: {fileID: 4430929264469949411, guid: 831b450fa2679a7429f5ae2c0fbb2f5e,
         type: 3}
       propertyPath: orthographic size
-      value: 89.04723
+      value: 120.58855
       objectReference: {fileID: 0}
     - target: {fileID: 4430929264469949412, guid: 831b450fa2679a7429f5ae2c0fbb2f5e,
         type: 3}
