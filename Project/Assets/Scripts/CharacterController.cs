@@ -12,9 +12,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
-    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    public float k_GroundedRadius = 1f; // Radius of the overlap circle to determine if grounded
     private bool m_Grounded;            // Whether or not the player is grounded.
-    const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    public float k_CeilingRadius = 1f; // Radius of the overlap circle to determine if the player can stand up
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Vector3 m_Velocity = Vector3.zero;
@@ -46,10 +46,12 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(m_Grounded == false && m_Rigidbody2D.velocity.y > 0)
+        
+        if (m_Grounded == false && m_Rigidbody2D.velocity.y > 0)
         {
             return;
         }
+        
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -57,19 +59,24 @@ public class CharacterController : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
+            Debug.Log("TESTING? " + colliders[i].gameObject);
             if (colliders[i].gameObject != gameObject)
             {
+                Debug.Log("I have hit the ground: " + colliders[i].gameObject);
                 m_Grounded = true;
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
             }
+           //Debug.Log("Grounded went from : " + wasGrounded + " to " + m_Grounded);
         }
+
     }
 
 
     public void Move(float move, bool crouch, bool jump)
     {
-        Debug.Log("Shtuff " + move);
+        Debug.Log("Moving by " + move + ", Crouching by " + crouch + ", Jumping by " + jump);
+        //Debug.Log("Horizontal Axis movement is Shtuff " + move);
         // If crouching, check to see if the character can stand up
         if (!crouch)
         {
@@ -83,7 +90,6 @@ public class CharacterController : MonoBehaviour
         //only control the player if grounded or airControl is turned on
         if (m_Grounded || m_AirControl)
         {
-
             // If crouching
             if (crouch)
             {
@@ -138,9 +144,10 @@ public class CharacterController : MonoBehaviour
             m_Grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             candoublejump = true;
+            Debug.Log("Attempting to jump");
             OnJumpingEvent.Invoke();
         }
-        else
+        else if(!m_Grounded)
         {
             if (candoublejump && Input.GetKeyDown(KeyCode.Space))
             {
