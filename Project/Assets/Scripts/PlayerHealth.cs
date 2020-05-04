@@ -9,13 +9,13 @@ public class PlayerHealth : MonoBehaviour // MonoBehaviour
 {
 
     // Insert your 3 hearts images in the Unity Editor
-    [SerializeField] private Image h1, h2, h3;
+    public Image h1, h2, h3;
     // Create an array because we're lazy
-    private Image[] images;
+    public Image[] images;
     // Gameover
     [SerializeField] private Image gameOver;
     // A private variable to keep between scenes
-    [SerializeField] private int health = 3;
+    public int health = 3;
     // Now we define Get / Set methods for health
     // In case we Set health to a different value we want to update UI
     public int Health { get { return health; } set { if (health != Health) health = Health; updateHealthUI(); } }
@@ -40,5 +40,26 @@ public class PlayerHealth : MonoBehaviour // MonoBehaviour
         {
             SceneManager.LoadScene(2);
         }
+    }
+    void Update()
+    {
+        if (transform.position.y == -20)
+        {
+            health--;
+        }
+        if (health == 3)
+        {
+            images = new Image[] { h1, h2, h3 };
+        }
+        else if (health == 2)
+        {
+            images = new Image[] { h1, h2 };
+        }
+        else if (health == 1)
+        {
+            images = new Image[] { h1 };
+        }
+  
+      
     }
 }
