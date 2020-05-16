@@ -7,7 +7,7 @@ public class PlayerHealthTheSequel : MonoBehaviour
     GameObject heart3;
     GameObject heart2;
 
-    private int health = 3;
+    int health = 3;
     void Start()
     {
         heart3.SetActive(true);
@@ -15,16 +15,22 @@ public class PlayerHealthTheSequel : MonoBehaviour
     }
     void Update()
     {
+        SubtractingHealth();
+        RemovingHearts();
+    }
+
+     
+    void SubtractingHealth()
+    {
         if (transform.position.y == -20)
         {
             health--;
         }
-
-        if (health == 3)
-        {
-            //things
-        }
-        else if (health == 2)
+        
+    }
+    void RemovingHearts()
+    {
+        if (health == 2)
         {
             heart3.SetActive(false);
         }
@@ -33,4 +39,6 @@ public class PlayerHealthTheSequel : MonoBehaviour
             heart3.SetActive(false);
             heart2.SetActive(false);
         }
+    }
 }
+
